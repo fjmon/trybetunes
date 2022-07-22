@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, Route } from 'react-router-dom';
 import { getUser } from '../services/userAPI';
 import Loading from './Loading';
 
@@ -18,7 +19,10 @@ export default class Header extends React.Component {
   gUser = async () => {
     try {
       const gUse = await getUser();
-      this.setState({ userName: gUse.name, isLoading: false });
+      this.setState({
+        userName: gUse.name,
+        isLoading: false,
+      });
     } catch (erro) {
       return erro;
     }
@@ -33,6 +37,27 @@ export default class Header extends React.Component {
             ? <Loading />
             : (<span className="user-name">{userName}</span>)}
         </div>
-      </header>);
+        <Route>
+          <Link
+            to="/search"
+            data-testid="link-to-search"
+          >
+            Search
+          </Link>
+          <Link
+            to="/favorites"
+            data-testid="link-to-favorites"
+          >
+            Favorites
+          </Link>
+          <Link
+            to="/profile"
+            data-testid="link-to-profile"
+          >
+            Profile
+          </Link>
+        </Route>
+      </header>
+    );
   }
 }
