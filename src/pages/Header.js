@@ -7,7 +7,7 @@ export default class Header extends React.Component {
   constructor() {
     super();
     this.state = {
-      userName: '',
+      nome: '',
       isLoading: true,
     };
   }
@@ -17,25 +17,21 @@ export default class Header extends React.Component {
   }
 
   gUser = async () => {
-    try {
-      const gUse = await getUser();
-      this.setState({
-        userName: gUse.name,
-        isLoading: false,
-      });
-    } catch (erro) {
-      return erro;
-    }
+    const gUse = await getUser();
+    this.setState({
+      nome: gUse.name,
+      isLoading: false,
+    });
   }
 
   render() {
-    const { userName, isLoading } = this.state;
+    const { nome, isLoading } = this.state;
     return (
       <header data-testid="header-component">
         <div data-testid="header-user-name">
           { isLoading
             ? <Loading />
-            : (<span className="user-name">{userName}</span>)}
+            : (<span className="user-name">{nome}</span>)}
         </div>
         <Route>
           <Link

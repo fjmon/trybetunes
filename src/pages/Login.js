@@ -31,6 +31,8 @@ export default class Login extends React.Component {
         setTimeout(() => this.setState({
           isLoading: false,
           login: true,
+          nome: '',
+          isButtonDisabled: true,
         }), TIME_CARG);
       };
 
@@ -50,14 +52,14 @@ export default class Login extends React.Component {
                   <input
                     data-testid="login-name-input"
                     type="text"
-                    value={ value }
                     onChange={ this.caracteres }
+                    value={ value }
                   />
                   <button
                     data-testid="login-submit-button"
                     type="button"
-                    disabled={ isButtonDisabled }
                     onClick={ this.cCreateUser }
+                    disabled={ isButtonDisabled }
                   >
                     Entrar
                   </button>
