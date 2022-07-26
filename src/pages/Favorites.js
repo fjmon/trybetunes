@@ -9,8 +9,8 @@ export default class Favorites extends React.Component {
     super();
 
     this.state = {
-      isLoading: true,
       favoritas: [],
+      isLoading: true,
     };
   }
 
@@ -32,6 +32,12 @@ excluiFav = async (event) => {
   console.log(id, checked);
   const { favoritas } = this.state;
   const idInt = favoritas.find((fin) => fin.trackId === Number(id));
+
+  this.setState((prev) => ({
+    isLoading: true,
+    favoritas: checked ? [...prev.favoritas, idInt] : prev.favoritas
+      .filter((favs) => favs.trackId !== Number(id)),
+  }));
   if (checked === false) await removeSong(idInt);
 
   this.setState({ isLoading: false });
@@ -53,8 +59,8 @@ render() {
                 trackCensoredName={ ma.trackName }
                 previewUrl={ ma.previewUrl }
                 trackId={ ma.trackId }
-                isChecked={ favoritas.find((fin) => fin.trackId === ma.trackId) }
                 favorita={ this.excluiFav }
+                isChecked={ favoritas.find((fin) => fin.trackId === ma.trackId) }
               />
             ))}
           </div>
