@@ -7,8 +7,8 @@ export default class Header extends React.Component {
   constructor() {
     super();
     this.state = {
-      nome: '',
-      isLoading: true,
+      nome: {},
+      isLoading: false,
     };
   }
 
@@ -17,43 +17,50 @@ export default class Header extends React.Component {
   }
 
   gUser = async () => {
+    this.setState({ isLoading: true });
     const gUse = await getUser();
-    this.setState({
-      nome: gUse.name,
-      isLoading: false,
-    });
+    this.setState({ nome: { ...gUse } });
+    this.setState({ isLoading: false });
   }
 
   render() {
     const { nome, isLoading } = this.state;
     return (
-      <header data-testid="header-component">
-        <div data-testid="header-user-name">
-          { isLoading
-            ? <Loading />
-            : (<span className="user-name">{nome}</span>)}
-        </div>
-        <Route>
-          <Link
-            to="/search"
-            data-testid="link-to-search"
-          >
-            Search
-          </Link>
-          <Link
-            to="/favorites"
-            data-testid="link-to-favorites"
-          >
-            Favorites
-          </Link>
-          <Link
-            to="/profile"
-            data-testid="link-to-profile"
-          >
-            Profile
-          </Link>
-        </Route>
-      </header>
+      <div>
+        {isLoading
+          ? <Loading />
+          : (
+            <header data-testid="header-component">
+              <span
+                data-testid="header-user-name"
+                className="user-name"
+              >
+                {nome.name}
+
+              </span>
+              <Route>
+                <Link
+                  to="/search"
+                  data-testid="link-to-search"
+                >
+                  Search
+                </Link>
+                <Link
+                  to="/favorites"
+                  data-testid="link-to-favorites"
+                >
+                  Favorites
+                </Link>
+                <Link
+                  to="/profile"
+                  data-testid="link-to-profile"
+                >
+                  Profile
+                </Link>
+              </Route>
+            </header>
+          ) }
+      </div>
     );
   }
 }

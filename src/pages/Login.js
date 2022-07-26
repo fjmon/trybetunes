@@ -24,16 +24,15 @@ export default class Login extends React.Component {
       };
 
       cCreateUser = () => {
-        const TIME_CARG = 1000;
         const { nome } = this.state;
         createUser({ name: nome });
         this.setState({ isLoading: true });
-        setTimeout(() => this.setState({
+        this.setState({
           isLoading: false,
           login: true,
           nome: '',
           isButtonDisabled: true,
-        }), TIME_CARG);
+        });
       };
 
       render() {

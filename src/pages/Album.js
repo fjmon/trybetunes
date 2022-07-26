@@ -41,7 +41,7 @@ favorita = async (event) => {
   this.setState((prev) => ({
     cargAlbum: true,
     fav: checked ? [...prev.fav, idInt] : prev.fav
-      .filter((fav) => fav.trackId !== id),
+      .filter((fav) => fav.trackId !== Number(id)),
   }));
 
   if (checked) {
